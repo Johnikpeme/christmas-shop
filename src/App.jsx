@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Star, Plus, Minus, Gift, Snowflake, X, Heart, Package } from 'lucide-react';
 import './App.css';
-import santahatImage from './assets/images/father_christmas.PNG';
-import santaOnesieImage from './assets/images/Gingerbread house.PNG';
-import pyjamasImage from './assets/images/Sleigh.PNG';
-import socksImage from './assets/images/Christmas socks.PNG';
-import shirtsImage from './assets/images/Christmas tree.PNG';
-import santapuffyhatImage from './assets/images/father_christmas.PNG';
+import santahatImage from './assets/images/father_christmas.png';
+import santaOnesieImage from './assets/images/Gingerbread house.png';
+import pyjamasImage from './assets/images/Sleigh.png';
+import socksImage from './assets/images/Christmas socks.png';
+import shirtsImage from './assets/images/Christmas tree.png';
+import santapuffyhatImage from './assets/images/father_christmas.png';
 import landscape1 from './assets/images/landscape1.jpg';
 import landscape2 from './assets/images/landscape2.jpg';
 import landscape3 from './assets/images/landscape3.jpg';
