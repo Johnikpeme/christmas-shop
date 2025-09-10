@@ -97,7 +97,7 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount }) => {
   if (paymentSuccess) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-xl p-6 bg-white rounded-2xl shadow-lg border border-gray-100">
+        <DialogContent className="sm:max-w-xl p-6 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-y-auto max-h-[80vh]">
           <div className="text-center py-10">
             <CheckCircle className="h-20 w-20 text-green-600 mx-auto mb-6" />
             <h3 className="text-3xl font-semibold text-green-700 mb-4">Payment Successful!</h3>
@@ -110,7 +110,7 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
+      <DialogContent className="sm:max-w-2xl p-6 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-y-auto max-h-[80vh]">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-3 bg-gradient-to-r from-green-600 to-teal-500 text-white p-4 rounded-lg">
             <Lock className="h-6 w-6" />
@@ -121,17 +121,17 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Order Summary */}
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Order Summary</h4>
+          <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+            <h4 className="text-lg font-semibold text-gray-800 mb-3">Order Summary</h4>
             {cart.map((item) => (
-              <div key={item.cartId} className="flex justify-between text-sm mb-2">
+              <div key={item.cartId} className="flex justify-between text-sm mb-1">
                 <span>{item.name} ({item.selectedSize}) x{item.quantity}</span>
                 <span>₦{(item.price * item.quantity).toFixed(2)}</span>
               </div>
             ))}
-            <div className="border-t pt-3 mt-3 font-medium">
+            <div className="border-t pt-2 mt-2 font-medium">
               <div className="flex justify-between text-lg">
                 <span>Total:</span>
                 <span>₦{totalAmount.toFixed(2)}</span>
@@ -166,7 +166,7 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount }) => {
           </div>
 
           {/* Customer Information */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
             <div>
               <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
                 First Name
@@ -221,7 +221,7 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount }) => {
           </div>
         </div>
 
-        <DialogFooter className="mt-8">
+        <DialogFooter className="mt-6">
           <Button variant="outline" onClick={onClose} className="text-gray-700 border-gray-300 hover:bg-gray-50">
             Cancel
           </Button>
