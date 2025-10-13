@@ -20,45 +20,45 @@ import landscape10 from './assets/images/IMG_7810.JPG';
 import landscape11 from './assets/images/IMG_7812.JPG';
 import logoNew from './assets/images/logonew.png';
 import PaymentModal from './components/PaymentModal';
-import sweatshirtsImage from './assets/images/sweatshirts.png'; // Ensure this image exists
-import mugsImage from './assets/images/mugs.png'; // Ensure this image exists
+import sweatshirtsImage from './assets/images/sweatshirts.png';
+import mugsImage from './assets/images/mugs.png';
 
 // Enhanced product data with full customization options
 const products = [
   {
     id: 1,
     name: 'Classic Santa Hat',
-    price: 6000, // Updated price
+    price: 6000,
     image: santahatImage,
     description: 'A timeless holiday essential, sleek red fabric with a fluffy white trim and pom-pom, perfect for any Christmas occasion',
     category: 'Santa Hats',
     rating: 4.8,
-    sizes: ['Kids: 3-12 years', 'Adult'], // Updated sizes
+    sizes: ['Kids: 3-12 years', 'Adult'],
     colors: ['darkred', 'darkgreen'],
     styles: ['Regular Fit', 'Oversized']
   },
   {
     id: 2,
     name: 'Puffy Santa Hat',
-    price: 6000, // Same as Classic Santa Hat
+    price: 6000,
     image: santapuffyhatImage,
     description: 'A fun, ultra-soft twist on the classic, extra plush and cozy, giving you that warm, festive look everyone loves.',
     category: 'Santa Hats',
     rating: 4.4,
-    sizes: ['Kids: 3-12 years', 'Adult'], // Same as Classic Santa Hat
+    sizes: ['Kids: 3-12 years', 'Adult'],
     colors: ['darkred', 'darkgreen'],
     styles: ['Classic Design', 'Personalized']
   },
   {
     id: 3,
     name: 'Christmas Baby Onesies',
-    price: 8500, // Updated price
+    price: 8500,
     image: santaOnesieImage,
     description: 'Adorable, cozy, and festive—your little one’s first Christmas made extra special!',
     category: 'Christmas Baby Onesies',
-    sizes: ['0-3M', '3-6M', '6-9M', '9-12M'], // Updated sizes
-    colors: ['White'], // Single color
-    designs: [ // Placeholder designs (replace with client-provided designs)
+    sizes: ['0-3M', '3-6M', '6-9M', '9-12M'],
+    colors: ['White'],
+    designs: [
       'Santa Face',
       'Reindeer',
       'Snowflake',
@@ -74,58 +74,58 @@ const products = [
   {
     id: 4,
     name: 'Christmas Pyjamas',
-    price: 10000, // In Naira
+    price: 10000,
     image: pyjamasImage,
     description: 'Matching magic for lovebirds and the whole crew—perfect for cozy nights and Christmas photos! ❤🎅',
     category: 'Christmas Pyjamas',
     sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 0-6 months', 'Kids: 6-12 months', 'Kids: 1-3 years', 'Kids: 3-12 years'],
-    colors: [], // Not used directly; handled by shirt and bottom colors
+    colors: [],
     shirtStyles: ['Short Sleeves', 'Long Sleeves'],
     bottomStyles: ['Long Plaid', 'Short Plaid'],
-    shirtColors: ['#800000', 'darkgreen', '#FFFFFF', '#000000'], // Maroon, Green, White, Black
-    bottomColors: ['#800000', '#FFFFFF', 'darkgreen'] // Red, White, Green
+    shirtColors: ['#800000', 'darkgreen', '#FFFFFF', '#000000'],
+    bottomColors: ['#800000', '#FFFFFF', 'darkgreen']
   },
   {
     id: 5,
     name: 'Baby Christmas Socks',
-    price: 5000, // In Naira
+    price: 5000,
     image: socksImage,
     description: 'The perfect completion to your baby’s Christmas look',
     category: 'Baby Socks',
     sizes: ['Small', 'Medium', 'Large', 'X-Large'],
-    colors: ['darkred', 'white', 'darkgreen'], // Red, White, Green
+    colors: ['darkred', 'white', 'darkgreen'],
   },
   {
     id: 6,
     name: 'Christmas T-Shirts',
-    price: { 'Short Sleeve': 10500, 'Long Sleeve': 13500 }, // Updated price based on style
+    price: { 'Short Sleeve': 10500, 'Long Sleeve': 13500 },
     image: shirtsImage,
     description: 'Look fun and festive with our stylish Tees 🌟🎄',
     category: 'Christmas T-Shirts',
-    sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 3-12 years'], // Removed kids 0-3 years
-    colors: ['darkred', 'black', 'white', 'darkgreen'], // Maroon, Black, White, Green
+    sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 3-12 years'],
+    colors: ['darkred', 'black', 'white', 'darkgreen'],
     shirtStyles: ['Short Sleeve', 'Long Sleeve']
   },
   {
     id: 7,
     name: 'Sweatshirts',
-    price: 12000, // In Naira
+    price: 12000,
     image: sweatshirtsImage,
     description: 'Warm, comfy, and oh-so-jolly—✨',
     category: 'Sweatshirts',
     sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL'],
-    colors: ['darkred', 'black', 'white', 'darkgreen'], // Maroon, Black, White, Green
+    colors: ['darkred', 'black', 'white', 'darkgreen'],
     shirtStyles: ['Crew Neck', 'Hoodie']
   },
   {
     id: 8,
     name: 'Christmas Mugs',
-    price: 4000, // In Naira
+    price: 4000,
     image: mugsImage,
     description: 'Sip the season’s joy in style—perfect for cocoa, coffee, and gifting! ☕🎅',
     category: 'Christmas Mugs',
     sizes: ['Standard'],
-    colors: ['white', 'darkred', 'darkgreen'] // White, Red, Green
+    colors: ['white', 'darkred', 'darkgreen']
   }
 ];
 
@@ -209,7 +209,6 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
     if (product) {
       setSelectedSize(product.sizes[0] || '');
       setSelectedColor(product.colors ? product.colors[0] : '');
-      // Ensure selectedShirtStyle is valid for products with shirtStyles
       setSelectedShirtStyle(product.shirtStyles ? product.shirtStyles[0] : '');
       setSelectedShirtColor(product.shirtColors ? product.shirtColors[0] : '');
       setSelectedBottomStyle(product.bottomStyles ? product.bottomStyles[0] : '');
@@ -288,7 +287,6 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
     return 'Enter text for the item';
   };
 
-  // Get the display price safely
   const getDisplayPrice = () => {
     try {
       if (typeof product.price === 'object' && selectedShirtStyle && product.price[selectedShirtStyle]) {
@@ -635,7 +633,6 @@ const CartSidebar = ({ isOpen, onClose, cart, updateQuantity, getTotalPrice, get
   );
 };
 
-// App Component (only updating getTotalPrice)
 function App() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -703,7 +700,6 @@ function App() {
     setIsProductModalOpen(true);
   };
 
-  // ... (Rest of the App component remains unchanged)
   return (
     <div className="min-h-screen bg-[#f5f5f5] relative overflow-hidden">
       <SnowflakeEffect />
@@ -720,7 +716,7 @@ function App() {
             ></div>
           ))}
           <div className="absolute inset-0 bg-black/40"></div>
-          <div className="absolute -top-4 left-8 z-50">
+          <div className="absolute top-8 left-8 z-50">
             <img src={logoNew} alt="The Christmas Company Logo" className="w-24 h-auto" />
           </div>
           <button
@@ -737,9 +733,9 @@ function App() {
             )}
           </button>
           <div className="relative z-10 flex items-center justify-center h-full text-center text-white">
-            <div>
-              <h3 className="text-4xl font-bold mb-2">Welcome to</h3>
-              <h2 className="text-7xl font-bold">The Christmas Company</h2>
+            <div className="hero-text-container">
+              <h3 className="hero-text-welcome text-4xl font-bold mb-2">Welcome to</h3>
+              <h2 className="hero-text-main text-7xl font-bold">The Christmas Company</h2>
             </div>
           </div>
         </div>
