@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Star, Plus, Minus, Gift, Snowflake, X, Heart, Package } from 'lucide-react';
+import { ShoppingCart, Star, Plus, Minus, Snowflake, X, Heart, Package } from 'lucide-react';
 import './App.css';
 import santahatImage from './assets/images/father_christmas.png';
 import santaOnesieImage from './assets/images/Gingerbread house.png';
@@ -7,83 +7,126 @@ import pyjamasImage from './assets/images/Sleigh.png';
 import socksImage from './assets/images/Christmas socks.png';
 import shirtsImage from './assets/images/Christmas tree.png';
 import santapuffyhatImage from './assets/images/father_christmas.png';
-import landscape1 from './assets/images/landscape1.jpg';
-import landscape2 from './assets/images/landscape2.jpg';
-import landscape3 from './assets/images/landscape3.jpg';
-import landscape4 from './assets/images/landscape4.jpg';
+import landscape1 from './assets/images/IMG_7786.jpg';
+import landscape2 from './assets/images/IMG_7787.jpg';
+import landscape3 from './assets/images/IMG_7792.jpg';
+import landscape4 from './assets/images/IMG_7794.jpg';
+import landscape5 from './assets/images/IMG_7796.jpg';
+import landscape6 from './assets/images/IMG_7797.jpg';
+import landscape7 from './assets/images/IMG_7806.jpg';
+import landscape8 from './assets/images/IMG_7808.jpg';
+import landscape9 from './assets/images/IMG_7809.jpg';
+import landscape10 from './assets/images/IMG_7810.jpg';
+import landscape11 from './assets/images/IMG_7812.jpg';
+import logoNew from './assets/images/logonew.png';
 import PaymentModal from './components/PaymentModal';
+import sweatshirtsImage from './assets/images/sweatshirts.png'; // Ensure this image exists
+import mugsImage from './assets/images/mugs.png'; // Ensure this image exists
 
 // Enhanced product data with full customization options
 const products = [
   {
     id: 1,
     name: 'Classic Santa Hat',
-    price: 6500,
+    price: 6000, // Updated price
     image: santahatImage,
     description: 'A timeless holiday essential, sleek red fabric with a fluffy white trim and pom-pom, perfect for any Christmas occasion',
     category: 'Santa Hats',
     rating: 4.8,
-    sizes: ['Small', 'Medium', 'Large', 'X-Large'],
+    sizes: ['Kids: 3-12 years', 'Adult'], // Updated sizes
     colors: ['darkred', 'darkgreen'],
-    styles: ['Regular Fit', 'Oversized', 'Kids Style']
+    styles: ['Regular Fit', 'Oversized']
   },
   {
     id: 2,
-    name: 'Premium Santa Onesie',
-    price: 15000, // In Naira
-    image: santaOnesieImage,
-    description: 'Wrap yourself in holiday comfort with our Premium Santa Onesie, ultra-soft, cozy, and perfect for festive nights at home.',
-    category: 'Onesies',
-    sizes: ['0-3M', '3-6M', '1-2 yrs'],
-    colors: ['White', 'darkred', 'Black'], // White, Red, Black
+    name: 'Puffy Santa Hat',
+    price: 6000, // Same as Classic Santa Hat
+    image: santapuffyhatImage,
+    description: 'A fun, ultra-soft twist on the classic, extra plush and cozy, giving you that warm, festive look everyone loves.',
+    category: 'Santa Hats',
+    rating: 4.4,
+    sizes: ['Kids: 3-12 years', 'Adult'], // Same as Classic Santa Hat
+    colors: ['darkred', 'darkgreen'],
+    styles: ['Classic Design', 'Personalized']
   },
   {
     id: 3,
+    name: 'Christmas Baby Onesies',
+    price: 8500, // Updated price
+    image: santaOnesieImage,
+    description: 'Adorable, cozy, and festive—your little one’s first Christmas made extra special!',
+    category: 'Christmas Baby Onesies',
+    sizes: ['0-3M', '3-6M', '6-9M', '9-12M'], // Updated sizes
+    colors: ['White'], // Single color
+    designs: [ // Placeholder designs (replace with client-provided designs)
+      'Santa Face',
+      'Reindeer',
+      'Snowflake',
+      'Christmas Tree',
+      'Candy Cane',
+      'Gingerbread Man',
+      'Snowman',
+      'Star',
+      'Holly',
+      'Present'
+    ]
+  },
+  {
+    id: 4,
     name: 'Christmas Pyjamas',
     price: 10000, // In Naira
     image: pyjamasImage,
-    description: 'Celebrate the season in style with our Christmas Pyjamas, lightweight, breathable, and designed for a perfect holiday fit.',
-    category: 'Gift Sets',
+    description: 'Matching magic for lovebirds and the whole crew—perfect for cozy nights and Christmas photos! ❤🎅',
+    category: 'Christmas Pyjamas',
     sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 0-6 months', 'Kids: 6-12 months', 'Kids: 1-3 years', 'Kids: 3-12 years'],
     colors: [], // Not used directly; handled by shirt and bottom colors
     shirtStyles: ['Short Sleeves', 'Long Sleeves'],
     bottomStyles: ['Long Plaid', 'Short Plaid'],
-    shirtColors: ['#800000', 'darkgreen', '#FFFFFF', '#000000'], // Maroon, Green, White, Black (hex codes)
-    bottomColors: ['#800000', '#FFFFFF', 'darkgreen'], // Red, White, Green (hex codes)
-  },
-  {
-    id: 4,
-    name: 'Christmas Socks',
-    price: 5000, // In Naira (adjust as needed)
-    image: socksImage, // Ensure you have a socksImage variable or path
-    description: 'Warm up your holiday style with our festive Christmas Socks, soft and cozy for the season.',
-    category: 'Accessories',
-    sizes: ['Small', 'Medium', 'Large', 'X-Large'], // Default sock sizes; adjust if needed
-    colors: ['darkred', 'white', 'darkgreen'], // Red, White, Green
+    shirtColors: ['#800000', 'darkgreen', '#FFFFFF', '#000000'], // Maroon, Green, White, Black
+    bottomColors: ['#800000', '#FFFFFF', 'darkgreen'] // Red, White, Green
   },
   {
     id: 5,
-    name: 'T-Shirts',
-    price: 8000, // In Naira
-    image: shirtsImage,
-    description: 'Spread holiday cheer in style with our Christmas T-Shirts, premium cotton, vibrant prints, and a perfect fit for every celebration.',
-    category: 'Clothing',
-    sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 0-6 months', 'Kids: 6-12 months', 'Kids: 1-3 years', 'Kids: 3-12 years'],
-    colors: ['darkred', 'black', 'white', 'darkgreen'], // Maroon, Black, White, Green
-    shirtStyles: ['Short Sleeve', 'Long Sleeve'], // Type options
+    name: 'Baby Christmas Socks',
+    price: 5000, // In Naira
+    image: socksImage,
+    description: 'The perfect completion to your baby’s Christmas look',
+    category: 'Baby Socks',
+    sizes: ['Small', 'Medium', 'Large', 'X-Large'],
+    colors: ['darkred', 'white', 'darkgreen'], // Red, White, Green
   },
   {
     id: 6,
-    name: 'Puffy Santa Hat',
-    price: 7800,
-    image: santapuffyhatImage,
-    description: 'A fun, ultra-soft twist on the classic, extra plush and cozy, giving you that warm, festive look everyone loves.',
-    category: 'Stockings',
-    rating: 4.4,
-    sizes: ['Small (Kids)', 'Medium (Adult)', 'Large (Family Pack)'],
-    colors: ['darkred', 'Elegant Gold', 'Winter White', 'Custom Mix'],
-    styles: ['Classic Design', 'Personalized', 'Luxury Velvet']
+    name: 'Christmas T-Shirts',
+    price: { 'Short Sleeve': 10500, 'Long Sleeve': 13500 }, // Updated price based on style
+    image: shirtsImage,
+    description: 'Look fun and festive with our stylish Tees 🌟🎄',
+    category: 'Christmas T-Shirts',
+    sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL', 'Kids: 3-12 years'], // Removed kids 0-3 years
+    colors: ['darkred', 'black', 'white', 'darkgreen'], // Maroon, Black, White, Green
+    shirtStyles: ['Short Sleeve', 'Long Sleeve']
   },
+  {
+    id: 7,
+    name: 'Sweatshirts',
+    price: 12000, // In Naira
+    image: sweatshirtsImage,
+    description: 'Warm, comfy, and oh-so-jolly—✨',
+    category: 'Sweatshirts',
+    sizes: ['Adult: S', 'Adult: M', 'Adult: L', 'Adult: XL', 'Adult: XXL'],
+    colors: ['darkred', 'black', 'white', 'darkgreen'], // Maroon, Black, White, Green
+    shirtStyles: ['Crew Neck', 'Hoodie']
+  },
+  {
+    id: 8,
+    name: 'Christmas Mugs',
+    price: 4000, // In Naira
+    image: mugsImage,
+    description: 'Sip the season’s joy in style—perfect for cocoa, coffee, and gifting! ☕🎅',
+    category: 'Christmas Mugs',
+    sizes: ['Standard'],
+    colors: ['white', 'darkred', 'darkgreen'] // White, Red, Green
+  }
 ];
 
 // Floating elements component for 3D effect
@@ -157,20 +200,24 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
   const [selectedShirtColor, setSelectedShirtColor] = useState(product?.shirtColors ? product.shirtColors[0] : '');
   const [selectedBottomStyle, setSelectedBottomStyle] = useState(product?.bottomStyles ? product.bottomStyles[0] : '');
   const [selectedBottomColor, setSelectedBottomColor] = useState(product?.bottomColors ? product.bottomColors[0] : '');
+  const [selectedDesign, setSelectedDesign] = useState(product?.designs ? product.designs[0] : '');
   const [quantity, setQuantity] = useState(1);
-  const [customText, setCustomText] = useState(''); // State for custom text input
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [customText, setCustomText] = useState('');
+  const [uploadedImage, setUploadedImage] = useState(null);
 
   useEffect(() => {
     if (product) {
-      setSelectedSize(product.sizes[0]);
-      setSelectedColor(product.colors[0]);
+      setSelectedSize(product.sizes[0] || '');
+      setSelectedColor(product.colors ? product.colors[0] : '');
+      // Ensure selectedShirtStyle is valid for products with shirtStyles
       setSelectedShirtStyle(product.shirtStyles ? product.shirtStyles[0] : '');
       setSelectedShirtColor(product.shirtColors ? product.shirtColors[0] : '');
       setSelectedBottomStyle(product.bottomStyles ? product.bottomStyles[0] : '');
       setSelectedBottomColor(product.bottomColors ? product.bottomColors[0] : '');
+      setSelectedDesign(product.designs ? product.designs[0] : '');
       setQuantity(1);
-      setCustomText(''); // Reset custom text on modal open
+      setCustomText('');
+      setUploadedImage(null);
     }
   }, [product]);
 
@@ -185,48 +232,73 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
       selectedShirtColor,
       selectedBottomStyle,
       selectedBottomColor,
+      selectedDesign,
       quantity,
-      customText, // Include custom text in the cart item
-      cartId: `${product.id}-${selectedSize}-${selectedColor}-${selectedShirtStyle}-${selectedShirtColor}-${selectedBottomStyle}-${selectedBottomColor}-${customText || ''}`
+      customText,
+      uploadedImage,
+      cartId: `${product.id}-${selectedSize}-${selectedColor}-${selectedShirtStyle}-${selectedShirtColor}-${selectedBottomStyle}-${selectedBottomColor}-${selectedDesign}-${customText || ''}`
     };
     onAddToCart(customizedProduct);
     onClose();
   };
 
-  // Custom sizes for Puffy Santa Hat and Classic Santa Hat
   const getCustomSizes = (name) => {
     if (['Puffy Santa Hat', 'Classic Santa Hat'].includes(name)) {
-      return ['Kids: 0-6 months', 'Kids: 6-12 months', 'Kids: 1-3 years', 'Kids: 3-12 years', 'Adult'];
+      return ['Kids: 3-12 years', 'Adult'];
     }
-    return product.sizes; // Use updated sizes for Pyjamas, T-Shirts, Onesies, Socks
+    return product.sizes || [];
   };
 
-  // Custom colors for Puffy Santa Hat, Classic Santa Hat, or specific colors for others
   const getShirtColors = (name) => {
     if (name === 'Christmas Pyjamas') {
-      return product.shirtColors || []; // Maroon, Green, White, Black
+      return product.shirtColors || [];
     }
-    if (name === 'T-Shirts') {
-      return product.colors || []; // Maroon, Black, White, Green
+    if (['Christmas T-Shirts', 'Sweatshirts'].includes(name)) {
+      return product.colors || [];
     }
     if (['Puffy Santa Hat', 'Classic Santa Hat'].includes(name)) {
-      return ['#dc2626', '#16a34a']; // Red and Green only
+      return ['#dc2626', '#16a34a'];
     }
-    return product.colors;
+    return product.colors || [];
   };
 
   const getBottomColors = (name) => {
     if (name === 'Christmas Pyjamas') {
-      return product.bottomColors || []; // Red, White, Green
+      return product.bottomColors || [];
     }
-    return product.colors;
+    return product.colors || [];
   };
 
-  const getOnesieColors = (name) => {
-    if (name === 'Premium Santa Onesie') {
-      return product.colors || []; // White, Red, Black
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setUploadedImage(URL.createObjectURL(file));
+    } else {
+      alert('Please upload a valid image file');
     }
-    return product.colors;
+  };
+
+  const getCustomTextPlaceholder = (name) => {
+    if (name === 'Christmas Baby Onesies') {
+      return 'Add baby’s name';
+    }
+    if (['Puffy Santa Hat', 'Classic Santa Hat'].includes(name)) {
+      return 'Enter names (separate each name with a comma)';
+    }
+    return 'Enter text for the item';
+  };
+
+  // Get the display price safely
+  const getDisplayPrice = () => {
+    try {
+      if (typeof product.price === 'object' && selectedShirtStyle && product.price[selectedShirtStyle]) {
+        return (product.price[selectedShirtStyle] * quantity).toFixed(2);
+      }
+      return (product.price * quantity).toFixed(2);
+    } catch (error) {
+      console.error('Error calculating display price:', error);
+      return '0.00';
+    }
   };
 
   return (
@@ -244,12 +316,20 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <img src={product.image} alt={product.name} className="w-full h-96 object-contain bg-transparent" />
+                {uploadedImage && (
+                  <div className="mt-4">
+                    <p className="text-gray-600 mb-2">Uploaded Image Preview:</p>
+                    <img src={uploadedImage} alt="Uploaded preview" className="w-full h-32 object-contain" />
+                  </div>
+                )}
               </div>
 
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-3">{product.name}</h2>
                 <p className="text-gray-600 mb-6">{product.description}</p>
-                <div className="text-4xl font-bold text-red-600 mb-6">₦{product.price.toFixed(2)}</div>
+                <div className="text-4xl font-bold text-red-600 mb-6">
+                  ₦{getDisplayPrice()}
+                </div>
 
                 {/* Size Selection */}
                 <div className="mb-6">
@@ -271,10 +351,32 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   </div>
                 </div>
 
-                {/* Shirt Style and Color Selection for Christmas Pyjamas and T-Shirts */}
-                {['Christmas Pyjamas', 'T-Shirts'].includes(product.name) && (
+                {/* Design Selection for Onesies */}
+                {product.name === 'Christmas Baby Onesies' && product.designs && (
                   <div className="mb-6">
-                    <h3 className="font-semibold text-gray-800 mb-3">Shirt</h3>
+                    <h3 className="font-semibold text-gray-800 mb-3">Design</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      {product.designs.map((design) => (
+                        <button
+                          key={design}
+                          onClick={() => setSelectedDesign(design)}
+                          className={`p-4 border-2 rounded-xl text-sm font-medium transition-all ${
+                            selectedDesign === design
+                              ? 'border-red-500 bg-red-50 text-red-700'
+                              : 'border-gray-200 hover:border-gray-300'
+                          }`}
+                        >
+                          {design}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Shirt Style and Color Selection for Christmas Pyjamas, T-Shirts, and Sweatshirts */}
+                {['Christmas Pyjamas', 'Christmas T-Shirts', 'Sweatshirts'].includes(product.name) && product.shirtStyles && (
+                  <div className="mb-6">
+                    <h3 className="font-semibold text-gray-800 mb-3">Style</h3>
                     <div className="grid grid-cols-2 gap-2">
                       {product.shirtStyles.map((style) => (
                         <button
@@ -343,82 +445,64 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   </div>
                 )}
 
-                {/* Color Selection for Onesies, Hats, and Socks */}
-                {['Puffy Santa Hat', 'Classic Santa Hat', 'Premium Santa Onesie', 'Christmas Socks'].includes(product.name) && (
+                {/* Color Selection for Onesies, Hats, Socks, and Mugs */}
+                {['Puffy Santa Hat', 'Classic Santa Hat', 'Baby Christmas Socks', 'Christmas Mugs'].includes(product.name) && product.colors.length > 0 && (
                   <div className="mb-6">
                     <h3 className="font-semibold text-gray-800 mb-3">Color</h3>
                     <div className="grid grid-cols-2 gap-2">
-                      {['Puffy Santa Hat', 'Classic Santa Hat'].includes(product.name) ? getShirtColors(product.name).map((color) => (
-                        <button
-                          key={color}
-                          onClick={() => setSelectedColor(color)}
-                          className={`w-10 h-10 border-2 rounded-lg transition-all ${
-                            selectedColor === color
-                              ? 'border-red-500 ring-2 ring-red-300'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                          style={{ backgroundColor: color }}
-                        />
-                      )) : product.name === 'Premium Santa Onesie' ? getOnesieColors(product.name).map((color) => (
-                        <button
-                          key={color}
-                          onClick={() => setSelectedColor(color)}
-                          className={`w-10 h-10 border-2 rounded-lg transition-all ${
-                            selectedColor === color
-                              ? 'border-red-500 ring-2 ring-red-300'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                          style={{ backgroundColor: color }}
-                        />
-                      )) : product.name === 'Christmas Socks' ? product.colors.map((color) => (
-                        <button
-                          key={color}
-                          onClick={() => setSelectedColor(color)}
-                          className={`w-10 h-10 border-2 rounded-lg transition-all ${
-                            selectedColor === color
-                              ? 'border-red-500 ring-2 ring-red-300'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                          style={{ backgroundColor: color }}
-                        />
-                      )) : null}
+                      {['Puffy Santa Hat', 'Classic Santa Hat'].includes(product.name)
+                        ? getShirtColors(product.name).map((color) => (
+                            <button
+                              key={color}
+                              onClick={() => setSelectedColor(color)}
+                              className={`w-10 h-10 border-2 rounded-lg transition-all ${
+                                selectedColor === color
+                                  ? 'border-red-500 ring-2 ring-red-300'
+                                  : 'border-gray-200 hover:border-gray-300'
+                              }`}
+                              style={{ backgroundColor: color }}
+                            />
+                          ))
+                        : product.colors.map((color) => (
+                            <button
+                              key={color}
+                              onClick={() => setSelectedColor(color)}
+                              className={`w-10 h-10 border-2 rounded-lg transition-all ${
+                                selectedColor === color
+                                  ? 'border-red-500 ring-2 ring-red-300'
+                                  : 'border-gray-200 hover:border-gray-300'
+                              }`}
+                              style={{ backgroundColor: color }}
+                            />
+                          ))}
                     </div>
                   </div>
                 )}
 
-                {/* Style Selection (only for non-custom products except Pyjamas, T-Shirts, Hats, Onesies, Socks) */}
-                {!['Puffy Santa Hat', 'Classic Santa Hat', 'Christmas Pyjamas', 'T-Shirts', 'Premium Santa Onesie', 'Christmas Socks'].includes(product.name) && (
-                  <div className="mb-6">
-                    <h3 className="font-semibold text-gray-800 mb-3">Style</h3>
-                    <div className="grid grid-cols-1 gap-2">
-                      {product.styles.map((style) => (
-                        <button
-                          key={style}
-                          onClick={() => setSelectedStyle(style)}
-                          className={`p-3 border-2 rounded-xl text-sm font-medium transition-all ${
-                            selectedStyle === style
-                              ? 'border-red-500 bg-red-50 text-red-700'
-                              : 'border-gray-200 hover:border-gray-300'
-                          }`}
-                        >
-                          {style}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Custom Text Input for Puffy, Classic Santa Hat, Christmas Pyjamas, T-Shirts, Onesies, and Socks */}
-                {['Puffy Santa Hat', 'Classic Santa Hat', 'Christmas Pyjamas', 'T-Shirts', 'Premium Santa Onesie', 'Christmas Socks'].includes(product.name) && (
+                {/* Custom Text Input */}
+                {['Puffy Santa Hat', 'Classic Santa Hat', 'Christmas Pyjamas', 'Christmas T-Shirts', 'Christmas Baby Onesies', 'Baby Christmas Socks', 'Christmas Mugs'].includes(product.name) && (
                   <div className="mb-6">
                     <h3 className="font-semibold text-gray-800 mb-3">Custom Text</h3>
                     <input
                       type="text"
                       value={customText}
                       onChange={(e) => setCustomText(e.target.value)}
-                      placeholder="Enter text for the item"
+                      placeholder={getCustomTextPlaceholder(product.name)}
                       className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-1 focus:ring-red-200 transition-all"
                       maxLength={20}
+                    />
+                  </div>
+                )}
+
+                {/* Image Upload */}
+                {['Puffy Santa Hat', 'Classic Santa Hat', 'Christmas Pyjamas', 'Christmas T-Shirts', 'Christmas Baby Onesies', 'Baby Christmas Socks', 'Christmas Mugs'].includes(product.name) && (
+                  <div className="mb-6">
+                    <h3 className="font-semibold text-gray-800 mb-3">Upload Image (Optional)</h3>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="w-full p-3 border-2 border-gray-200 rounded-xl focus:border-red-500 focus:ring-1 focus:ring-red-200 transition-all"
                     />
                   </div>
                 )}
@@ -448,7 +532,7 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
                   className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-3xl h-16 font-medium text-xl transition-all transform hover:scale-105 flex items-center justify-center"
                 >
                   <ShoppingCart className="h-6 w-6 mr-2" />
-                  Add to Cart - ₦{(product.price * quantity).toFixed(2)}
+                  Add to Cart - ₦{getDisplayPrice()}
                 </button>
               </div>
             </div>
@@ -490,10 +574,17 @@ const CartSidebar = ({ isOpen, onClose, cart, updateQuantity, getTotalPrice, get
                       <h4 className="font-semibold text-gray-800 mb-1">{item.name}</h4>
                       <div className="text-xs text-gray-500 space-y-1">
                         <p>Size: {item.selectedSize}</p>
-                        <p>Color: {item.selectedColor}</p>
-                        <p>Style: {item.selectedStyle}</p>
+                        {item.selectedColor && <p>Color: {item.selectedColor}</p>}
+                        {item.selectedShirtStyle && <p>Style: {item.selectedShirtStyle}</p>}
+                        {item.selectedDesign && <p>Design: {item.selectedDesign}</p>}
+                        {item.customText && <p>Text: {item.customText}</p>}
+                        {item.uploadedImage && <p>Image: Uploaded</p>}
                       </div>
-                      <p className="font-bold text-red-600 mt-2">₦{item.price}</p>
+                      <p className="font-bold text-red-600 mt-2">
+                        ₦{typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]
+                          ? item.price[item.selectedShirtStyle].toFixed(2)
+                          : (item.price || 0).toFixed(2)}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between mt-4">
@@ -544,19 +635,20 @@ const CartSidebar = ({ isOpen, onClose, cart, updateQuantity, getTotalPrice, get
   );
 };
 
+// App Component (only updating getTotalPrice)
 function App() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false); // New state for PaymentModal
-  const slides = [landscape1, landscape2, landscape3, landscape4]; // Array of four landscape images
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const slides = [landscape4, landscape2, landscape3, landscape1, landscape5, landscape6, landscape7, landscape8, landscape9, landscape10, landscape11];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -587,7 +679,19 @@ function App() {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    try {
+      return cart
+        .reduce((total, item) => {
+          const price = typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]
+            ? item.price[item.selectedShirtStyle]
+            : item.price || 0;
+          return total + price * item.quantity;
+        }, 0)
+        .toFixed(2);
+    } catch (error) {
+      console.error('Error calculating total price:', error);
+      return '0.00';
+    }
   };
 
   const getTotalItems = () => {
@@ -599,6 +703,7 @@ function App() {
     setIsProductModalOpen(true);
   };
 
+  // ... (Rest of the App component remains unchanged)
   return (
     <div className="min-h-screen bg-[#f5f5f5] relative overflow-hidden">
       <SnowflakeEffect />
@@ -611,15 +716,12 @@ function App() {
             <div
               key={index}
               className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-              style={{ backgroundImage: `url(${slide})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: `url(${slide})`, backgroundSize: 'cover', backgroundPosition: '50% 35%' }}
             ></div>
           ))}
-          <div className="absolute inset-0 bg-black/40"></div> {/* Transparent overlay */}
-          {/* Logo and Cart overlaid on carousel */}
-          <div className="absolute top-8 left-8 z-50">
-            <div className="w-12 h-12">
-              <Gift className="h-12 w-12 text-white opacity-80" />
-            </div>
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute -top-4 left-8 z-50">
+            <img src={logoNew} alt="The Christmas Company Logo" className="w-24 h-auto" />
           </div>
           <button
             onClick={() => setIsCartOpen(true)}
@@ -634,7 +736,6 @@ function App() {
               </span>
             )}
           </button>
-          {/* Centered text */}
           <div className="relative z-10 flex items-center justify-center h-full text-center text-white">
             <div>
               <h3 className="text-4xl font-bold mb-2">Welcome to</h3>
@@ -656,13 +757,7 @@ function App() {
         {products.map((product, index) => {
           const colors = ['bg-[#053f31]', 'bg-[#9e1b23]', 'bg-[#e6cbba]'];
           const currentColor = colors[index % colors.length];
-
-          // Conditionally render "Fast Selling" tag only for specific products
-          const isFastSelling = [
-            'Classic Santa Hat',
-            'Puffy Santa Hat',
-            'T-Shirts',
-          ].includes(product.name);
+          const isFastSelling = ['Classic Santa Hat', 'Puffy Santa Hat', 'Christmas T-Shirts'].includes(product.name);
 
           return (
             <div
@@ -702,7 +797,6 @@ function App() {
         })}
       </section>
 
-      {/* Cart Sidebar */}
       <CartSidebar
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -716,7 +810,6 @@ function App() {
         }}
       />
 
-      {/* Product Customization Modal */}
       <ProductModal
         product={selectedProduct}
         isOpen={isProductModalOpen}
@@ -724,7 +817,6 @@ function App() {
         onAddToCart={addToCart}
       />
 
-      {/* Payment Modal */}
       <PaymentModal
         isOpen={isPaymentModalOpen}
         onClose={() => setIsPaymentModalOpen(false)}
@@ -732,7 +824,6 @@ function App() {
         totalAmount={parseFloat(getTotalPrice())}
       />
 
-      {/* Overlay for cart */}
       {isCartOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40" onClick={() => setIsCartOpen(false)} />
       )}
