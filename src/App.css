@@ -189,65 +189,7 @@
   border-image: linear-gradient(45deg, #dc2626, #fbbf24, #16a34a) 1;
 }
 
-/* Ensure Tailwind CSS is imported if you're using it */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-/* Existing snowflake animation */
-.snowflake {
-  position: absolute;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-100vh);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-/* New 3D text styles for the hero section */
-.hero-text-container {
-  position: relative;
-  text-align: center;
-}
-
-.hero-text-welcome {
-  font-family: 'Arial', sans-serif; /* Replace with a bold, decorative font if desired */
-  color: #ffffff; /* White text */
-  text-shadow: 
-    2px 2px 0 #b71c1c, /* Red shadow for depth */
-    4px 4px 4px rgba(0, 0, 0, 0.5), /* Dark shadow for cast effect */
-    6px 6px 8px rgba(0, 0, 0, 0.3); /* Softer shadow for realism */
-  transform: perspective(500px) translateZ(10px); /* Slight 3D perspective */
-  animation: textPop 1s ease-out forwards;
-}
-
-.hero-text-main {
-  font-family: 'Arial', sans-serif; /* Replace with a bold, decorative font if desired */
-  color: #ffffff; /* White text */
-  text-shadow: 
-    3px 3px 0 #b71c1c, /* Red shadow for depth */
-    6px 6px 6px rgba(0, 0, 0, 0.5), /* Dark shadow for cast effect */
-    8px 8px 10px rgba(0, 0, 0, 0.3); /* Softer shadow for realism */
-  transform: perspective(500px) translateZ(15px); /* More pronounced 3D effect */
-  animation: textPop 1s ease-out 0.2s forwards;
-}
-
-/* Animation for text to "pop" into view */
-@keyframes textPop {
-  0% {
-    transform: perspective(500px) translateZ(-20px) scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: perspective(500px) translateZ(10px) scale(1);
-    opacity: 1;
-  }
-}
 
 
 
