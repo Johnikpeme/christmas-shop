@@ -4,7 +4,7 @@ import './App.css';
 import santahatImage from './assets/images/father_christmas.png';
 import santaOnesieImage from './assets/images/Gingerbread house.png';
 import pyjamasImage from './assets/images/Sleigh.png';
-import socksImage from './assets/images/fluffy-santa-socks.png';
+import socksImage from './assets/images/fluffy-santa-socks.PNG';
 import shirtsImage from './assets/images/Christmas tree.png';
 import santapuffyhatImage from './assets/images/father_christmas.png';
 import landscape1 from './assets/images/IMG_7786.JPG';
