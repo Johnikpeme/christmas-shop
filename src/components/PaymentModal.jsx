@@ -110,44 +110,73 @@ const PaymentModal = ({ isOpen, onClose, cart, totalAmount, clearCart }) => {
     setIsProcessing(false);
 
     try {
-      const verifyResponse = await fetch('/api/verify-payment', {
+      const verifyResponse = await fetch('http://localhost:3150/api/verify-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reference: response.reference }),
+        body: JSON.stringify({ 
+          reference: response.reference,
+          orderData: {
+            email: customerInfo.email,
+            firstName: customerInfo.firstName,
+            lastName: customerInfo.lastName,
+            phone: customerInfo.phone,
+            deliveryAddress: customerInfo.deliveryAddress,
+            items: cart,
+            subtotal: totalAmount,
+            deliveryFee: deliveryFee
+          }
+        }),
       });
+
       const verifyData = await verifyResponse.json();
 
       if (verifyData.status === 'success') {
-        // Store order details for success message
+        // Store verified order details
         setOrderDetails({
+          ...verifyData.data,
           email: customerInfo.email,
+          firstName: customerInfo.firstName,
+          lastName: customerInfo.lastName,
+          deliveryAddress: customerInfo.deliveryAddress,
           items: cart,
           subtotal: totalAmount,
           deliveryFee: deliveryFee,
           total: finalTotalAmount,
-          deliveryAddress: customerInfo.deliveryAddress,
-          reference: response.reference,
         });
 
-        // Clear the cart
-        if (clearCart) {
-          clearCart();
-        }
+        // Clear cart
+        if (clearCart) clearCart();
 
         setPaymentSuccess(true);
 
-        // Close success message after 8 seconds
+        // Auto-close after showing success
         setTimeout(() => {
           setPaymentSuccess(false);
           setOrderDetails(null);
           onClose();
-        }, 8000);
+        }, 10000); // 10 seconds
+
+        // Optional: Poll for order status updates
+        const interval = setInterval(async () => {
+          try {
+            const statusResponse = await fetch(`http://localhost:3150/api/order/${response.reference}`);
+            const statusData = await statusResponse.json();
+            if (statusData.status === 'success' && statusData.order.status === 'shipped') {
+              clearInterval(interval);
+              // Update UI or show shipping notification
+            }
+          } catch (error) {
+            clearInterval(interval);
+          }
+        }, 30000); // Check every 30 seconds
+
       } else {
-        alert('Payment verification failed. Please contact support.');
+        alert('❌ Payment verification failed. Please contact support.');
+        // Don't clear cart on verification failure
       }
     } catch (error) {
       console.error('Verification error:', error);
-      alert('Error verifying payment. Please contact support.');
+      alert('❌ Error verifying payment. Please contact support.');
     }
   };
 

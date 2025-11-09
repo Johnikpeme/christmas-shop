@@ -4,7 +4,7 @@ import './App.css';
 import santahatImage from './assets/images/father_christmas.png';
 import santaOnesieImage from './assets/images/Gingerbread house.png';
 import pyjamasImage from './assets/images/Sleigh.png';
-import socksImage from './assets/images/Christmas socks.png';
+import socksImage from './assets/images/fluffy-santa-socks.png';
 import shirtsImage from './assets/images/Christmas tree.png';
 import santapuffyhatImage from './assets/images/father_christmas.png';
 import landscape1 from './assets/images/IMG_7786.JPG';
@@ -22,6 +22,15 @@ import logoNew from './assets/images/logonew.png';
 import PaymentModal from './components/PaymentModal';
 import sweatshirtsImage from './assets/images/sweatshirts.png'; // Ensure this image exists
 import mugsImage from './assets/images/mugs.png'; // Ensure this image exists
+import socksNorthPole from './assets/images/north-pole-socks.PNG';
+import socksReindeer from './assets/images/reindeer-socks.PNG';
+import socksTeddy from './assets/images/teddy-socks.PNG';
+import socksSanta from './assets/images/santa-socks.PNG';
+import socksChristmasTree from './assets/images/christmas-tree-socks.PNG';
+import socksSnowflake from './assets/images/snowflake-socks.PNG';
+import socksSnowman from './assets/images/snowman-socks.PNG';
+import fluffySanta from './assets/images/fluffy-santa-socks.PNG';
+import fluffyTeddy from './assets/images/fluffy-teddy-socks.PNG';
 
 // Enhanced product data with full customization options
 const products = [
@@ -93,7 +102,19 @@ const products = [
     description: 'The perfect completion to your baby’s Christmas look',
     category: 'Baby Socks',
     sizes: ['Small', 'Medium', 'Large', 'X-Large'],
-    colors: ['darkred', 'white', 'darkgreen'], // Red, White, Green
+    colors: [],
+    designs: ['North Pole', 'Reindeer', 'Teddy', 'Santa', 'Christmas Tree', 'Snowflake', 'Snowman', 'Fluffy Santa','Fluffy Teddy'],
+    designImages: {
+      'North Pole': socksNorthPole,
+      'Reindeer': socksReindeer,
+      'Teddy': socksTeddy,
+      'Santa': socksSanta,
+      'Christmas Tree': socksChristmasTree,
+      'Snowflake': socksSnowflake,
+      'Snowman': socksSnowman,
+      'Fluffy Santa':fluffySanta,
+      'Fluffy Teddy':fluffyTeddy,
+    }
   },
   {
     id: 6,
@@ -301,6 +322,8 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
     }
   };
 
+  const displayImage = (selectedDesign && product.designImages && product.designImages[selectedDesign]) || product.image;
+
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[95vh] overflow-y-auto shadow-2xl transform transition-all duration-300 hover:shadow-3xl">
@@ -315,7 +338,7 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
           <div className="p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <img src={product.image} alt={product.name} className="w-full h-96 object-contain bg-transparent" />
+                <img src={displayImage} alt={product.name} className="w-full h-96 object-contain bg-transparent" />
                 {uploadedImage && (
                   <div className="mt-4">
                     <p className="text-gray-600 mb-2">Uploaded Image Preview:</p>
@@ -352,7 +375,7 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
                 </div>
 
                 {/* Design Selection for Onesies */}
-                {product.name === 'Christmas Baby Onesies' && product.designs && (
+                {product.designs && (
                   <div className="mb-6">
                     <h3 className="font-semibold text-gray-800 mb-3">Design</h3>
                     <div className="grid grid-cols-2 gap-2">
