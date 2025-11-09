@@ -97,20 +97,20 @@ const products = [
   {
     id: 5,
     name: 'Baby Christmas Socks',
-    price: 5000, // In Naira
+    price: 3500, // In Naira
     image: socksImage,
     description: 'The perfect completion to your baby’s Christmas look',
     category: 'Baby Socks',
     sizes: ['Small', 'Medium', 'Large', 'X-Large'],
     colors: [],
-    designs: ['North Pole', 'Reindeer', 'Teddy', 'Santa', 'Christmas Tree', 'Snowflake', 'Snowman', 'Fluffy Santa','Fluffy Teddy'],
+    designs: ['North Pole', 'Reindeer', 'Teddy', 'Santa','Snowflake', 'Christmas Tree', 'Snowman', 'Fluffy Santa','Fluffy Teddy'],
     designImages: {
       'North Pole': socksNorthPole,
       'Reindeer': socksReindeer,
       'Teddy': socksTeddy,
       'Santa': socksSanta,
-      'Christmas Tree': socksChristmasTree,
       'Snowflake': socksSnowflake,
+      'Christmas Tree': socksChristmasTree,
       'Snowman': socksSnowman,
       'Fluffy Santa':fluffySanta,
       'Fluffy Teddy':fluffyTeddy,
@@ -312,10 +312,16 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
   // Get the display price safely
   const getDisplayPrice = () => {
     try {
-      if (typeof product.price === 'object' && selectedShirtStyle && product.price[selectedShirtStyle]) {
-        return (product.price[selectedShirtStyle] * quantity).toFixed(2);
+      let basePrice;
+      if (product.name === 'Baby Christmas Socks' && selectedDesign) {
+        const premiumDesigns = ['Christmas Tree', 'Snowman', 'Fluffy Santa', 'Fluffy Teddy'];
+        basePrice = premiumDesigns.includes(selectedDesign) ? 5500 : 3500;
+      } else if (typeof product.price === 'object' && selectedShirtStyle && product.price[selectedShirtStyle]) {
+        basePrice = product.price[selectedShirtStyle];
+      } else {
+        basePrice = product.price;
       }
-      return (product.price * quantity).toFixed(2);
+      return (basePrice * quantity).toFixed(2);
     } catch (error) {
       console.error('Error calculating display price:', error);
       return '0.00';
@@ -568,6 +574,17 @@ const ProductModal = ({ product, isOpen, onClose, onAddToCart }) => {
 
 // Cart Sidebar Component
 const CartSidebar = ({ isOpen, onClose, cart, updateQuantity, getTotalPrice, getTotalItems, onCheckout }) => {
+  const getItemPrice = (item) => {
+    if (item.name === 'Baby Christmas Socks' && item.selectedDesign) {
+      const premiumDesigns = ['Christmas Tree', 'Snowman', 'Fluffy Santa', 'Fluffy Teddy'];
+      return premiumDesigns.includes(item.selectedDesign) ? 5500 : 3500;
+    } else if (typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]) {
+      return item.price[item.selectedShirtStyle];
+    } else {
+      return item.price || 0;
+    }
+  };
+
   return (
     <div className={`fixed inset-y-0 right-0 z-50 w-96 bg-white shadow-2xl transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
       <div className="flex flex-col h-full">
@@ -604,9 +621,7 @@ const CartSidebar = ({ isOpen, onClose, cart, updateQuantity, getTotalPrice, get
                         {item.uploadedImage && <p>Image: Uploaded</p>}
                       </div>
                       <p className="font-bold text-red-600 mt-2">
-                        ₦{typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]
-                          ? item.price[item.selectedShirtStyle].toFixed(2)
-                          : (item.price || 0).toFixed(2)}
+                        ₦{getItemPrice(item).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -701,13 +716,22 @@ function App() {
     }
   };
 
+  const getItemPrice = (item) => {
+    if (item.name === 'Baby Christmas Socks' && item.selectedDesign) {
+      const premiumDesigns = ['Christmas Tree', 'Snowman', 'Fluffy Santa', 'Fluffy Teddy'];
+      return premiumDesigns.includes(item.selectedDesign) ? 5500 : 3500;
+    } else if (typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]) {
+      return item.price[item.selectedShirtStyle];
+    } else {
+      return item.price || 0;
+    }
+  };
+
   const getTotalPrice = () => {
     try {
       return cart
         .reduce((total, item) => {
-          const price = typeof item.price === 'object' && item.selectedShirtStyle && item.price[item.selectedShirtStyle]
-            ? item.price[item.selectedShirtStyle]
-            : item.price || 0;
+          const price = getItemPrice(item);
           return total + price * item.quantity;
         }, 0)
         .toFixed(2);
